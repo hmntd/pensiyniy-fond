@@ -290,7 +290,7 @@ onMounted(async () => {
 
             <FloatLabel variant="on">
                 <DatePicker v-model="form.date_of_birth" inputId="dob" showIcon iconDisplay="input"
-                    :invalid="form.errors.date_of_birth" />
+                    :invalid="form.errors.date_of_birth" :maxDate="new Date()" />
                 <label for="dob">Date of birth</label>
             </FloatLabel>
         </div>
@@ -393,7 +393,7 @@ onMounted(async () => {
                 <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                     Clients Dashboard
                 </h2>
-                <Button @click="showModal = true" severity="primary">
+                <Button v-if="$page.props.auth.user.role_id === 1"  @click="showModal = true" severity="primary">
                     + Create Client
                 </Button>
             </div>
@@ -404,7 +404,7 @@ onMounted(async () => {
                 <DataTable v-if="clients.length > 0" :value="clients" paginator :rows="5"
                     :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 50rem">
                     <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header"></Column>
-                    <Column header="Actions">
+                    <Column v-if="$page.props.auth.user.role_id === 1" header="Actions">
                         <template #body="slotProps">
                             <div class="flex gap-2">
                                 <Button severity="secondary" @click="showSalaryModal = slotProps.data.id">+ Add

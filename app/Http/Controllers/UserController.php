@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::with('role')->get();
+
+    }
+
+    public function roles()
+    {
+        return Role::all();
     }
 
     /**
@@ -28,7 +35,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $user->load('role');
+        return $user;
     }
 
     /**

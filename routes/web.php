@@ -22,6 +22,10 @@ Route::get('/pensions', function () {
     return Inertia::render('Pensions');
 })->middleware(['auth', 'verified'])->name('pensions');
 
+Route::get('/users', function () {
+    return Inertia::render('Users');
+})->middleware(['auth', 'verified'])->name('users');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
